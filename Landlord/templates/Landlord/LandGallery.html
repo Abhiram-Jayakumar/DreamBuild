@@ -1,0 +1,60 @@
+{% extends 'Landlord/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="tab">
+            <h1 align="center">LAND GALLERY</h1>
+        <table border="5" align="center" cellpadding="100" table style="width:50%">
+            <tr>
+                <td>Caption</td>
+                <td><input type="text" name="txt_caption" placeholder="Mention View" required></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td>
+                    <input type="file" id="img" name="image" required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="submit" value="Save">
+                    <input type="reset" name="cancel" value="cancel">
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</form>
+<div id="tab">
+    <br>
+    <br>
+<table border="5" align="center" cellpadding="100" table style="width:50%">
+    <tr>
+        <th>Caption</th>
+        <th>Photo</th>
+        <th>Delete</th>
+    </tr>
+    {% for x in landgal %}
+    <tr>
+        <td>{{x.Caption}}</td>
+        <td><img src="{{x.Photo.url}}"  height="100" width="100"></td>
+         <td><a href="{% url 'Landlord:dltlndgallery' x.id %}">Delete</a></td></tr>
+        
+    {% endfor %}
+</table>
+</div>
+</body>
+</html>
+</body>
+{% endblock  %}
+</html>
+ 

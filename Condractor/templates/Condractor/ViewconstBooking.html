@@ -1,0 +1,66 @@
+{% extends 'Condractor/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="tab">
+        <table border="5" align="center" cellpadding="10">
+            
+            <h1 align="center">View Constructor Booking</h1>
+            <tr>
+                <th>User</th>
+                <th>Booking_Date</th>
+                <th>From Date</th>
+                <th>Details</th>
+                <th>Booking Status</th>
+                <th>Accept</th>
+                <th>Reject</th>
+            </tr>
+            {% for x in const1 %}
+            <tr>
+                <td >{{x.User1.Name}}</td>
+                <td>{{x.Booking1_Date}}</td>
+                <td>{{x.Date}}</td>
+                <td>{{x.Details}}</td>
+                <td>
+                    
+                    {% if x.b1_status == 1 %}
+                    <p>Accepted</p>
+                    {% else %}
+                    <p>Pending</p>
+                    {% endif %}
+                
+                </td>
+                <td><a class="btn btn-success" href="{% url 'Condractor:accept' x.id %}">Accept</a></td>
+            <td><a href="{% url 'Condractor:reject' x.id %}">Reject</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </form>
+</body>
+<script>
+    function getAccept()
+    {
+     alert("Accepted");
+    }
+    function getrejected()
+    {
+     alert("Rejected");
+     
+    }
+</script>
+{% endblock  %}
+</html>

@@ -1,0 +1,92 @@
+{% extends 'Condractor/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="tab">
+    <br>
+    <br>
+    <h1 align="center">ADD PREVIOUS WORK</h1>
+        <table border="5" align="center" cellpadding="10">
+            <tr>
+                <td>Type</td>
+             <td><select name="Type" type="text" id="type">
+                 <option>--Select--</option>
+                 {% for i in contract  %}
+                 <option value="{{i.id}}">{{i}}</option>
+             {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Square feet</td>
+                <td><input type="text" name="txt_squarefeet"></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td>
+                    <input type="file" id="img" name="image">
+                </td>
+            </tr>
+            <tr>
+                <td>Discription</td>
+                <td><input type="text" name="txt_discription"></td>
+
+            </tr>
+            <tr>
+                <td>Total amount</td>
+                <td><input type="text" name="txt_totalamount"></td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td><input type="text" name="txt_duration"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="submit" value="Save">
+                    <input type="reset" name="cancel" value="cancel">
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+    <div id="tab">
+        <br>
+        <br>
+    <table border="5" align="center" cellpadding="10">
+        <tr>
+        <th>Type</th>
+        <th>Squarefeet</th>
+        <th>Photo</th>
+        <th>Discription</th>
+        <th>Total Amount</th>
+        <th>Duration</th>
+        <th>Next</th>
+        
+    </tr>
+    {% for x in prfconst %}
+    <tr>
+        <td>{{x.Type}}</td>
+        <td>{{x.Squarefeet}}</td>
+        <td><img src="{{x.Photo.url}}" alt="" height="100" width="100"></td>
+        <td>{{x.Description}}</td>
+        <td>{{x.Totalamount}}</td>
+        <td>{{x.Duration}}</td><td><a href="{% url 'Condractor:worksgal' x.id %}">Works Gallery</a></td>
+    </tr>
+        
+    {% endfor %}
+</table>
+</div>
+        
+</body>
+{% endblock  %}
+</html>

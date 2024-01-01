@@ -1,0 +1,74 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data" id="Searchland" place-url="{% url 'Guest:load_place' %}">
+        {% csrf_token %}
+        <h1 align="center">Search Land</h1>
+        <div id="tab">
+            <table border="5" align="center" cellpadding="10" style="border-collapse: collapse;">
+
+                <tr>
+                    <td>District</td>
+                    <td><select name="txt_distict" type="text" id="district">
+                            <option>--Select--</option>
+                            {% for i in dist %}
+                            <option value="{{i.id}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" name="search" value="Search">
+                    </td>
+                </tr>
+    </form>
+    <div id="data">
+        <div id="tab">
+            <table align="center" cellpadding="30" style="border-collapse: collapse;">
+                {% for i in data %}
+                <td>
+                    <div style="text-align: center;border: 5px solid black; margin: 22px; padding: 20px;">
+                        <p> Area :{{i.Area}}</p>
+
+                        <br>
+                        <p> Rate :{{i.Rate}}</p>
+
+                        <br>
+                        <p> District :{{i.district}}</p>
+
+                        <br>
+                        <p> Pincode :{{i.Pincode}}</p>
+
+                        <br>
+                        <p> Location :{{i.Location}}</p>
+
+                        <br>
+                        <p><img src="{{i.Photo.url}}" alt="" height="100" width="100"></p>
+                        <br>
+                        <br>
+                        <p><a href="{% url 'User:Viewlandfacilities' i.id %}">View Facilities</a></p>
+                        <br>
+                        <p><a href="{% url 'User:viewgal' i.id %}">View Gallery</a></p>
+                        <br>
+                        <p><a href="{% url 'User:tokenpage' i.id%}">Token Now</a></p>
+                    </div>
+                </td>
+                {% if forloop.counter|divisibleby:4 %}
+                </tr>
+                <tr>
+                    {% endif %}
+                    {% endfor %}
+            </table>
+        </div>
+</body>
+{% endblock %}
+
+</html>

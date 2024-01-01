@@ -1,0 +1,44 @@
+{% extends 'Worker/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <form method="POST" >
+        {% csrf_token %}
+        <h1 align="center">My Profile</h1>
+        <br>
+        <div id="tab">
+        <table border="5" align="center" cellpadding="10">
+            
+            <tr>
+                <td>Name</td>
+                <td>{{ workerdetails.Name }}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{ workerdetails.Contact }}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{ workerdetails.Email }}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>{{ workerdetails.Address }}</td>
+            </tr>
+            <td colspan="2" align="center"><a href="{% url 'Worker:updateworker' workerdetails.id %}">Update</a>
+                 <a href="{% url 'Worker:changepassword' workerdetails.id %}">Change Password</a></td>
+                 <td><a href="{% url 'Worker:dltworker' workerdetails.id %}" onclick="return confirm('Are you sure you want to delete this Account');">Delete</a></td>
+        </table>
+    </div>
+    </form>
+</body>
+{% endblock  %}
+</html>

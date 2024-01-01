@@ -1,0 +1,73 @@
+{% extends 'Condractor/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="post">
+        <div id="data">
+            
+                {% csrf_token %}
+                
+                    <h1 align="center">View Worker Booking</h1>
+                    <div id="tab">
+                        
+                    <table align="center" cellpadding="30" style="border-collapse: collapse;">
+                        <tr>
+                            {% for i in booked %}
+                            <td>
+                                <div style="text-align: center;border: 5px solid black; margin: 22px; padding: 20px;">
+                                    <p> name :{{ i.newworker.Name }}</p>
+                                    <br>
+                                    <p> Booked Date :{{ i.Booking2_Date }}</p>
+                                    <br>
+                                    <p> Details :{{ i.Details }}</p>
+                                    <br>
+                                    
+                                    {% if i.b2_status == 1 %}
+                                    {% if i.p_status == 0 %}
+                                   
+                                    
+                                    <p><a href="{% url 'Condractor:contactworker' i.id  %}">Contact</a></p>
+                                    {% elif i.p_status == 1 %}
+                                    <p>Contacted</p>
+                                    {% elif i.p_status == 2 %}
+                                    <p>Completed</p>
+                                    <p><a href="{% url 'Condractor:balanceforworker' i.id  %}">Paynow</a></p>
+                                    {% else %}
+                                    <p>Payed</p>
+                                    
+                                    {% endif %}
+                                    
+                                    {% elif i.b_status == 0 %}
+                                    <p>Not Accepted</p>
+                                    
+                                    {% endif %}
+                                </div>
+                            </td>
+                            {% if forloop.counter|divisibleby:4 %}
+                        </tr>
+                        <tr>
+                            {% endif %}
+
+
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </div>
+
+
+            </table>
+
+    </form>
+</body>
+{% endblock  %}
+</html>

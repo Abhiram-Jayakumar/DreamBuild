@@ -1,0 +1,70 @@
+{% extends 'Admin/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 align="center">Place</h1>
+    <form method="POST">
+     {% csrf_token %} 
+     <table border="5" align="center" cellpadding="10">
+         <tr>
+             <td>District</td>
+             <td><select name="District" type="text">
+                 <option>--Select--</option>
+                 {% for i in dist %}
+                 <option value="{{i.id}}">{{i}}</option>
+                 {% endfor %}
+             </select></td>
+         </tr>  
+         <tr>
+             <td>Place</td>
+             <td><input type="text" name="txt_place"></td>
+         </tr>
+         <tr>
+             <td>Pincode</td>
+             <td><input type="text" name="txt_pincode"></td>
+         </tr>
+         <tr>
+            <td><input type="submit" name="btn_save" value="Save">
+                <input type="reset" name="btn_cancel" value="Cancel">
+            </td>
+        </tr>
+     </table>
+     <table border="1" align="center">
+         <tr>
+             <th>District</th>
+             <th>Place</th>
+             <th>Pincode</th>
+         </tr>
+         
+            {% for i in plc %}
+            <tr>
+                <td>{{i.District}}</td>
+                <td>{{i.Place_name}}</td>
+                <td>{{i.Pincode}}</td>
+                <td><a href="{% url 'Admin:dltplace' i.id %}">Delete</a></td>
+                <td><a href="{% url 'Admin:updplace' i.id %}">Update</a></td>
+            </tr>
+
+        {% endfor %}
+     
+    </table>
+    </form>
+    
+</body>
+{% endblock  %}
+</html>

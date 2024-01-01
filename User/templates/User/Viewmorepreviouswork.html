@@ -1,0 +1,51 @@
+{% extends 'User/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <div id="data">
+        <div id="tab">
+        <table align="center" cellpadding="30" style="border-collapse: collapse;">
+            {% csrf_token %}
+            <h1 align="center">Previous Work</h1>
+            <td>
+                <tr>
+                    {% for x in prevwork %}
+                    <td>
+                        <div style="text-align: center;border: 5px solid black; margin: 22px; padding: 20px;">
+                            <p><img src="{{x.Photo.url}}" alt="" height="100" width="100"></p>
+                            <br>
+                            
+                            <p>{{ x.Description }}</p>
+                            <br>
+                            <p>{{ x.Squarefeet }}</p>
+                            <br>
+                            <p>{{ x.Duration }}</p>
+                            <br>
+                            <p>{{ x.Totalamount }}</p>
+                            <br>
+                            <p><a href="{% url 'User:viewworksgal' x.id %}">Works Gallery</a></p>
+                            <br>
+                        </div>
+                    </td>
+                    {% if forloop.counter|divisibleby:4 %}
+                </tr>
+                <tr>
+                    {% endif %}
+                    {% endfor %}
+    </div>
+    </table>
+</div>
+
+</body>
+{% endblock  %}
+</html>

@@ -1,0 +1,157 @@
+{% extends 'Guest/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function () {
+                alert("Submitted");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    {% block content %}
+    <h1 align="center">New Worker</h1>
+    <form method="POST"  enctype="multipart/form-data" id="newworker"  place-url="{% url 'Guest:load_place' %}">
+        {% csrf_token %}
+        <div id="tab">
+            <table border="5" align="center" cellpadding="10" cellpadding="100" table style="width:70%">
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" id="fname" name="txt_name" placeholder="Your name.." required><br><span
+                            class="note">[Note 1: Please do not use any prefix such as
+                            Shri/ Mr./ Ms./ Dr./ Mrs. Etc.]</span>
+                        <br><span class="note"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td><input type="tel" id="phone" name="txt_contact" placeholder="Enter Phone  Number" required><br><span
+                        class="note">[Note 1: No need of entering Country Code "+91"]</span>
+                    <br><span class="note"></span></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+
+                    <td><input type="radio" value="Male" name="n3">Male
+                        <br> <input type="radio" value="Female" name="n3">Female
+                        <br> <input type="radio" value="other" name="n3">other
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" name="txt_email" pattern="[^ @]*@[^ @]*" placeholder="Enter Email"
+                            id="email" required><br><span class="note">[Note 1: enter Valid Email Address]</span>
+                        <br><span class="note"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>District</td>
+                    <td><select name="District" type="text" id="district" required>
+                            <option>--Select--</option>
+                            {% for i in distric %}
+                            <option value="{{i.id}}">{{i}}</option>
+                            {% endfor %}
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>place</td>
+                    <td><select name="Place" type="text" id="place">
+                            <option>--Select--</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>Experience</td>
+                    <td><input type="text" name="txt_experience" placeholder="Your Experience" required><br><span
+                            class="note">[Note 1: Specify Your Experience By Month And Year Month by ("M")& Year By
+                            ("Y") ]</span>
+                        <br><span class="note"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Title</td>
+                    <td><input type="text" name="title" placeholder="Your Job Name" required><br><span
+                            class="note">[Note 1: USE UPPERCASE LETTERS]</span>
+                        <br><span class="note"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><textarea rows="4" cols="120" name="txt_address" placeholder="Enter Valid Address"
+                            required></textarea><br><span class="note">[Note 1: Maximum 100 characters]</span>
+                        <br><span class="note"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Proof</td>
+                    <td>
+                        <input type="file" id="img" name="image_Proof1" required><br><span
+                        class="note">[Note 1: Adhaar or Driving License "Photo identity proof must be submited"]</span>
+                    <br><span class="note"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td><input type="text" name="txt_username" required><br><span
+                        class="note">[Note 1: Dont Use Special Characters and Symbols "@" ,"#",' " '," * "]</span>
+                    <br><span class="note"></span></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="txt_password" placeholder="Enter strong Password " id="pwd"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+                            required><br><span class="note">[Note 1: Password must fulfil following
+                            conditions:<br>Lowercase<br>Uppercase<br>Number (0-9)<br>Length of Password should be 10
+                            to20 characters]</span>
+                        <br><span class="note"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Repassword</td>
+                    <td><input type="password" name="txt_repassword" placeholder=" Enter Same As Above" id="pwd"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+                            required><br><span class="note">[Note 1: Confirm Password Enter Above]</span>
+                        <br><span class="note"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit" name="btn_submit" value="Registernow"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#district").change(function () {
+
+            var url = $("#newworker").attr("place-url");
+            var districtid = $(this).val();
+
+            $.ajax({
+                url: url,
+                data: {
+                    'district': districtid,
+                },
+                success: function (data) {
+                    $("#place").html(data);
+                }
+            });
+        });
+
+    </script>
+    {% endblock %}
+</body>
+
+</html>

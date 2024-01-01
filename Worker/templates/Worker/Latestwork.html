@@ -1,0 +1,63 @@
+{% extends 'Worker/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 align="center">Add Latest Work</h1>
+        <div id="tab">
+        <table border="5" align="center" cellpadding="10">
+            <tr>
+                <td>Title</td>
+                <td><input type="text" name="txt_title"></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input type="text" name="txt_description"></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td>
+                    <input type="file" id="img" name="image">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="submit" value="Save">
+                    <input type="reset" name="cancel" value="cancel">
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+    <div id="tab">
+        <br>
+        <br>
+    <table border="5" align="center" cellpadding="10">
+        <tr>
+            <th>Title</th>
+            <th>Discription</th>
+            <th>Photo</th>
+        </tr>
+        {% for x in result %}
+        <tr>
+            <td>{{x.Title}}</td>
+            <td>{{x.Description}}</td>
+            <td><img src="{{x.Photo.url}}" alt="" height="100" width="100"></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+{% endblock  %}
+</html>

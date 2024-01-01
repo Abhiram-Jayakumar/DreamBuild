@@ -1,0 +1,67 @@
+{% extends 'Admin/Header.html' %}
+ {% load static %}<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 align="center">View Workers</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <table border="5" align="center" cellpadding="10">
+            <tr>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>District</th>
+                <th>Place</th>
+                <th>Address</th>
+                <th>Proof</th>
+            </tr>
+            {% for x in result %}
+            <tr>
+                <td>{{x.Name}}</td>
+                <td>{{x.Contact}}</td>
+                <td>{{x.Gender}}</td>
+                <td>{{x.Email}}</td>
+                <td>{{x.Place.District}}</td>
+                <td>{{x.Place}}</td>
+                <td>{{x.Address}}</td>
+                <td><img src="{{ x.Proofworker.url }}" height="100" width="100"></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </form>
+</body>
+{% endblock  %}
+
+</html>

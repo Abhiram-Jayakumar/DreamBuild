@@ -1,0 +1,49 @@
+{% extends 'User/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST">
+        <div id="data">
+            {% csrf_token %}
+            <div id="tab">
+            <table align="center" cellpadding="30" style="border-collapse: collapse;">
+                <tr>
+                    <th>Category</th>
+                    <th>Rate</th>
+                    <th>Discription</th>
+                    <th>Experience</th>
+                    <th>Next</th>
+                </tr>
+                </tr>
+                {% for a in work %}
+                <tr>
+                    <td>{{ a.Category }}</td>
+                    <td>{{ a.Rate }}</td>
+                    <td>{{ a.Discription }}</td>
+                    <td>{{ a.Experience }}</td>
+                    <td><a href="{% url 'User:View-Latest' a.id %}">Latest work</a></td>
+                </tr>
+                {% endfor %}
+        
+            </table>
+        </div>
+        </td>
+        </tr>
+        </table>
+    </div>
+        </div>
+    </form>
+
+</body>
+{% endblock  %}
+</html>

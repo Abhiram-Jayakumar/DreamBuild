@@ -1,0 +1,64 @@
+
+
+{% extends 'Admin/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+    {% block content %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 align="center">View Constructor Details</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="5" align="center" cellpadding="10">
+        <tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>District</th>
+            <th>Place</th>
+            <th>Address</th>
+            <th>TotalEmployees</th>
+            <th>RegisterName</th>
+            <th>LicenseNumber</th>
+        </tr>
+        {% for x in view %}
+        <tr>
+            <td>{{x.Name}}</td>
+            <td>{{x.Contact}}</td>
+            <td>{{x.Gender}}</td>
+            <td>{{x.Email}}</td>
+            <td>{{x.Place.District}}</td>
+            <td>{{x.Place}}</td>
+            <td>{{x.Address}}</td>
+            <td>{{x.Totalemployees}}</td>
+            <td>{{x.Registeredname}}</td>
+            <td>{{x.Licensenumber}}</td>
+            <td><img src="{{ x.Proof1.url }}" height="100" width="100"></td>    
+            <td><img src="{{ x.Proof2.url }}" height="100" width="100"></td>
+            <td><a  href="{% url 'Admin:accept' x.id %}">Accept</a></td>
+            <td><a href="{% url 'Admin:reject' x.id %}">Rejected</a></td>
+
+        </tr>
+        {% endfor %}
+        </table>
+    </form>
+</body>
+
+</script>
+{% endblock  %}
+</html>

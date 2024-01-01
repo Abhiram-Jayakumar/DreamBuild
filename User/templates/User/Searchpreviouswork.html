@@ -1,0 +1,61 @@
+{% extends 'User/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 align="center">Search Previous Work</h1>
+        <table border="1" align="center" cellpadding="10" style="border-collapse: collapse;">
+            <tr>
+                <td>Type</td>
+                <td><select name="txt_type" id="type">
+                        <option>--Select--</option>
+                        {% for i in wrkytp %}
+                        <option value="{{i.id}}">{{i}}</option>
+                        {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="search" value="Search"></td>
+            </tr>
+        </table>
+    </form>
+    <div id="data">
+        <table align="center" cellpadding="30" style="border-collapse: collapse;">
+            {% for x in prevwork %}
+            <tr>
+
+            <td>
+                <div style="text-align: center;border: 1px solid black; margin: 22px; padding: 20px;">
+                    <p><img src="{{x.Photo.url}}" alt="" height="100" width="100"></p>
+                    <br>
+                    <p>{{ x.Totalamount }}</p>
+                    <br>
+                    <p>{{ x.Description }}</p>
+                    <br>
+                    <p><a href="{% url 'User:viewmoreprv' x.id %}">View-more</a></p>
+                    <br>
+                    </tr>
+                </div>
+            </td>
+            {% if forloop.counter|divisibleby:4 %}
+            </tr>
+            <tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+</body>
+{% endblock  %}
+
+</html>

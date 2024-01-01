@@ -1,0 +1,51 @@
+{% extends 'Condractor/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <div id="data">
+        <div id="tab">
+        <table align="center" cellpadding="30" style="border-collapse: collapse;">
+            {% csrf_token %}
+            <h1 align="center">Previous Work Details</h1>
+            <td>
+                <tr>
+                    {% for x in prfconst %}
+                    <td>
+                        <div style="text-align: center;border: 1px solid black; margin: 22px; padding: 20px;">
+                        <p><img src="{{x.Photo.url}}" alt="" height="100" width="100"></p>
+                        <br>
+                        <p> Type :{{x.Type}}</p>
+                        <br>
+                        <p> Squarefeet :{{x.Squarefeet}}</p>
+                        <br>
+                        <p> Description :{{x.Description}}</p>
+                        <br>
+                        <p> Totalamaount :{{x.Totalamount}}</p>
+                        <br>
+                        <p> Duration :{{x.Duration}}</p>
+                        <br>
+                        
+    </div>
+    </td>
+    {% if forloop.counter|divisibleby:4 %}
+    </tr>
+    <tr>
+        {% endif %}
+        {% endfor %}
+        </div>
+        </table>
+    </div>
+
+</body>
+{% endblock  %}
+</html>

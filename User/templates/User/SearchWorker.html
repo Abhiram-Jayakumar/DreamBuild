@@ -1,0 +1,87 @@
+{% extends 'User/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data" id="SearchWorker" place-url="{% url 'Guest:load_place' %}">
+        {% csrf_token %}
+        <h1 align="center">Search Worker</h1>
+        <div id="tab">
+        <table border="10" align="center" cellpadding="10">
+            <tr>
+                <td>District</td>
+                <td><select name="txt_distict" type="text" id="district">
+                        <option>--Select--</option>
+                        {% for i in District %}
+                        <option value="{{i.id}}">{{i}}</option>
+                        {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td><select name="txt_place" type="text" id="place">
+                        <option>--Select--</option>
+                    </select>
+                <input type="submit" name="search" value="Search"></td>
+            </tr>
+
+        </table>
+        <div>
+    </form>
+    <div id="data">
+        <table align="center" cellpadding="30" style="border-collapse: collapse;">
+            <tr>
+                {% for i in Wrkrsrch %}
+                <td>
+                    <div style="text-align: center;border: 5px solid black; margin: 22px; padding: 20px;">
+
+                        <p>"{{i.Name}}"</p>
+                        <br>
+                        <p>{{i.Contact}}</p>
+
+                        <br>
+                        <p>{{i.Experience}}</p>
+                        <br>
+                        <p>{{i.title}}</p>
+                        <br>
+                        <p><a href="{% url 'User:viewmoresrchwrk' i.id %}">View-more</a></p>
+                    </div>
+                </td>
+                {% if forloop.counter|divisibleby:4 %}
+            </tr>
+            <tr>
+                {% endif %}
+                {% endfor %}
+        </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#district").change(function () {
+
+            var url = $("#SearchWorker").attr("place-url");
+            var districtid = $(this).val();
+
+            $.ajax({
+                url: url,
+                data: {
+                    'district': districtid,
+                },
+                success: function (data) {
+                    $("#place").html(data);
+                }
+            });
+        });
+    </script>
+    {% endblock  %}
+</body>
+
+</html>

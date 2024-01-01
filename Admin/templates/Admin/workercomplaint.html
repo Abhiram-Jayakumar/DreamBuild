@@ -1,0 +1,57 @@
+{% extends 'Admin/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        <h1 align="center"> Worker Complaint</h1>
+        <div id="tab" style="box-sizing: content-box;">
+            <table border="2" align="center" style="border-collapse:collapse;">
+                <tr>
+                    <th>Complaint</th>
+                    <th>Date</th>
+                    <th>Complaint Type</th>
+                    <th>User Name</th>
+
+                </tr>
+                {% for i in comp %}
+                <tr>
+                    <td>{{i.complaint}}</td>
+                    <td>{{i.Complaint_Date}}</td>
+                    <td>{{i.complaint_type}}</td>
+                    <td>{{i.worker.Name}}</td>
+                    <td>
+                        {% if i.Complaint_Status == 0 %}
+                        <a href="{% url 'Admin:workerReplay' i.id %}">Replay</a>
+                    {% else %}
+                    <p>Already Replied</p>
+                    {% endif %}
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </form>
+</body>
+{% endblock  %}
+</html>
+
+
+
+

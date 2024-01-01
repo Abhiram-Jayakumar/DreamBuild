@@ -1,0 +1,49 @@
+{% extends 'Admin/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {% block content %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <h1 align="center">Constructor Services</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <table border="5" align="center" cellpadding="10">
+            <tr>
+                <td>Services</td>
+                <td><input type="text" name="txt_service"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" name="btn_save" value="Save">
+                        <input type="reset" name="btn_cancel" value="Cancel">
+                    </td>
+                </tr>
+        </table>
+        <table border="5" align="center" cellpadding="10">
+            <tr>
+                {% for i in Cons %}
+            </tr>
+            <tr>
+                <br>
+                <td>{{i.Service}}</td>
+                <td><a href="{% url 'Admin:dltcontractservice' i.id %}">Delete</a></td>
+                <td><a href="{%url 'Admin:updatecontractservice' i.id %}">Update</a></td>
+                </tr>
+                {% endfor %}
+        </table>
+    </form>
+</body>
+{% endblock  %}
+</html>

@@ -1,0 +1,68 @@
+{% extends 'Condractor/Header.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <br />
+        <br>
+        <br>
+        <h1 align="center">condractor Complaints</h1>
+        <div id="tab">
+            <table border="5" align="center" cellpadding="10" style="border-collapse:collapse;">
+                <br />
+                <tr>
+                    <td>Complaint Type</td>
+                    <td><select name="complaint_type" type="text">
+                            <option>--Select--</option>
+                            {% for i in CmpType %}
+                            <option value="{{i.id}}">{{i}}</option>
+                            {% endfor %}
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>Complaint</td>
+                    <td><textarea name="complaint" cols="30" rows="10"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" name="sub" value="Submit">&nbsp;&nbsp;
+                        <input type="reset" name="cancel" value="Cancel">
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table border="5" align="center" cellpadding="10" style="border-collapse:collapse;">
+                <tr>
+                    <th>Complaint</th>
+                    <th>Complaint Type</th>
+                    <th>Complaint Date</th>
+                    <th>Complaint Reply</th>
+                </tr>
+                {% for i in comp %}
+                <tr>
+                    <td>{{i.complaint}}</td>
+                    <td>{{i.complaint_type.Complaint_Type}}</td>
+                    <td>{{i.Complaint_Date}}</td>
+                    <td>{{i.Complaintreply}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </form>
+    {% endblock %}
+</body>
+
+</html>

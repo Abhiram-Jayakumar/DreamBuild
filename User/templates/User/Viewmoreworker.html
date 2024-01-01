@@ -1,0 +1,62 @@
+{% extends 'User/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST">
+        <div id="data">
+            {% csrf_token %}
+            <div id="tab">
+            <table align="center" cellpadding="30" style="border-collapse: collapse;">
+                <tr>
+                    <td>
+                        <div style="text-align: center;border: 5px solid black; margin: 22px; padding: 20px;">
+                            {% for prevsrchwork in prevsrchwork %}
+
+                            <p> Name :{{ prevsrchwork.Name }}</p>
+                            <br>
+                            <p> Address :{{ prevsrchwork.Address }}</p>
+                            <br>
+                            <p> Contact :{{ prevsrchwork.Contact }}</p>
+                            <br>
+                            <p> Email :{{ prevsrchwork.Email }}</p>
+                            <br>
+                            <p> Experience :{{ prevsrchwork.Experience }}</p>
+                            <br>
+                            <p><a href="{% url 'User:View-Profile' prevsrchwork.id %}">View Profile</a></p>
+                            <br>
+                            
+                            {% if prevsrchwork.worker_bookingstatus == 0 %}
+                            
+                            <p><a href="{% url 'User:workerbooking' prevsrchwork.id %}">Book</a></p>
+                            {% else %}
+                            <p>Already in a work</p>
+                            {% endif %}
+                            
+                            
+                           
+                        </div>
+                        <br>
+                        {% endfor %}
+                    </td>
+                </tr>
+        </div>
+        </td>
+        </tr>
+        </table>
+    </div>
+        </div>
+    </form>
+
+</body>
+{% endblock  %}
+</html>

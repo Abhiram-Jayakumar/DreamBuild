@@ -1,0 +1,92 @@
+{% extends 'User/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data" id="Searchcondractor" place-url="{% url 'Guest:load_place' %}">
+        {% csrf_token %} 
+        <h1 align="center">Search Constructor</h1>
+        <div id="tab">
+        <table border="10" align="center" cellpadding="10">
+            <tr>
+                <td>District</td>
+                <td><select name="txt_distict" type="text" id="district">
+                        <option>--Select--</option>
+                        {% for i in District %}
+                        <option value="{{i.id}}">{{i}}</option>
+                        {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td><select name="txt_place" type="text" id="place">
+                        <option>--Select--</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="search" value="Search"></td>
+            </tr>
+
+        </table>
+    </div>
+    </form>
+    <div id="data">
+        <div id="tab">
+        <table align="center" cellpadding="30" style="border-collapse: collapse;">
+            <tr>
+                {% for i in const %}
+                <td>
+                    <div style="text-align: center;border: 1px solid black; margin: 22px; padding: 20px;">
+                        <p> Name : {{i.Name}}</p>
+                        <br>
+                        <p> Contact : {{i.Contact}}</p>
+                        <br>
+                        <p> Email : {{i.Email}}</p>
+                        <br>
+                        <p> Address : {{i.Address}}</p>
+                        <br>
+                        <p> Licensenumber : {{i.Licensenumber}}</p>
+                        <br>
+                        <p><a href="{% url 'User:viewmoreconstructor' i.id  %}">View More</a></p>
+                        <br>
+                    </div>
+                </td>
+                {% if forloop.counter|divisibleby:4 %}
+            </tr>
+            <tr>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#district").change(function () {
+
+            var url = $("#Searchcondractor").attr("place-url");
+            var districtid = $(this).val();
+
+            $.ajax({
+                url: url,
+                data: {
+                    'district': districtid,
+                },
+                success: function (data) {
+                    $("#place").html(data);
+                }
+            });
+        });
+    </script>
+</body>
+{% endblock  %}
+
+</html>

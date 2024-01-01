@@ -1,0 +1,84 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        console.log("haii")
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+
+        var maxDate = year + '-' + month + '-' + day;
+
+
+        console.log(maxDate);
+        $('#txtDate').attr('min', maxDate);
+    });
+
+</script>
+{% extends 'User/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="post">
+        <div id="data">
+            {% csrf_token %}
+            <tr>
+                {% for x in wo1 %}
+                <td>
+                    <div style="text-align: center;border: 5px solid black; margin: 22px; padding: 20px;">
+                        <p> Name : {{ x.Name }}</p>
+                        <br>
+                        <p> Contact : {{ x.Contact }}</p>
+                        <br>
+                        <p> Email : {{ x.Email }}</p>
+                        <br>
+                        <p> Address : {{ x.Address }}</p>
+                        <br>
+                        <p> Experience : {{ x.Experience }}</p>
+                        <br>
+                        {% endfor %}
+                        <div id="tab">
+            <table border="5" align="center" cellpadding="10">
+                <tr>
+                    <td>Details</td>
+                    <td><textarea name="txt_details" id="" cols="20" rows="5"></textarea></td>
+                </tr>
+                <tr> 
+                    <td>From Date</td>
+                    <td><input type="date" name="from_date" id="txtDate"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit" name="btn_save" value="Save" onclick="getAccept();">
+                        <input type="reset" name="btn_cancel" value="Cancel">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        </div>
+    </form>
+</body>
+<script>
+    function getAccept()
+    {
+     alert("Booking Succesfull");
+     
+    }
+</script>
+{% endblock  %}
+</html>

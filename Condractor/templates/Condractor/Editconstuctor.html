@@ -1,0 +1,46 @@
+{% extends 'Condractor/Header.html' %}
+ {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+    <form method="POST" enctype="multipart/form-data" id="newcondractor" place-url="{% url 'Guest:load_place' %}">
+        {% csrf_token %}
+        <div id="tab">
+        <table border="5" align="center" cellpadding="10">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" value="{{constupd.Name}}"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" name="txt_contact"  value="{{constupd.Contact}}"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="txt_email"  value="{{constupd.Email}}"></td>
+            </tr>
+            
+            <tr>
+                <td>Address</td>
+                <td><input type="text" name="txt_address" value="{{constupd.Address}}"></td>
+            </tr>
+            
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_submit" value="Registernow" ></td>
+            </tr>
+        </table>
+    </div>
+    </form>
+    
+</body>
+{% endblock  %}
+</html>

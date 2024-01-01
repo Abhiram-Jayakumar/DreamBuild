@@ -1,0 +1,47 @@
+{% extends 'Landlord/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="tab">
+            <h1 align="center">LAND FACILITIES</h1>
+        <table border="5" align="center" cellpadding="100" table style="width:50%">
+            <tr>
+                <td>Facilities</td>
+                <td><select name="txt_facilities" type="text">
+                        <option>--Select--</option>
+                        {% for i in landfactt %}
+                        <option value="{{i.id}}">{{i}}</option>
+                        {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Discription</td>
+                <td><input type="text" name="txt_discription" required></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td>
+                    <input type="file" id="img" name="image" required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+{% endblock  %}
+</html>

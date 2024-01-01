@@ -1,0 +1,67 @@
+{% extends 'Landlord/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="tab">
+        <table border="5" align="center" cellpadding="100" table style="width:70%">
+            
+            <h1 align="center">View Land Booking</h1>
+            <tr>
+                <th>land Location</th><th>Area</th>
+                <th>Booking_Date</th>
+                <th>Booking Status</th>
+                <th>Payment Status</th>
+                <th>User Details</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Accept</th>
+                <th>Reject</th>
+            </tr>
+            {% for x in land %}
+            <tr>
+                <td>{{x.manageland.Location}}</td>
+                <td>{{x.manageland.Area}}</td>
+                <td>{{x.Booking_Date}}</td>
+                <td>
+                    
+                    {% if x.b_status == 1 %}
+                <p>Accepted</p>
+                {% else %}
+                <p>Not Accepted</p>
+                {% endif %}
+                </td>
+                <td>
+                    
+                    {% if x.p_status == 1 %}
+                <p>Token Geted</p>
+                {% else %}
+                <p>Not Recived</p>
+                {% endif %}
+                </td>
+                <td>{{x.User.Name}}</td>
+                <td>{{x.User.Contact}}</td>
+                <td>{{x.User.Email}}</td>
+
+                <td><a href="{% url 'Landlord:accept' x.id %}">Accept</a></td>
+            <td><a href="{% url 'Landlord:reject' x.id %}">Reject</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </form>
+</body>
+{% endblock  %}
+
+</html>

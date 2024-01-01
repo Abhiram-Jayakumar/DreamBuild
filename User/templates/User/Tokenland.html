@@ -1,0 +1,57 @@
+{% extends 'User/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    
+    <form method="post">
+        <div id="data">
+            
+            <table align="center" cellpadding="30" style="border-collapse: collapse;">
+                {% csrf_token %}
+                <div id="data">
+                    <h1 align="center">Token</h1>
+                    <table align="center" cellpadding="30" style="border-collapse: collapse;">
+                        <tr>
+                            <td>
+                                <div style="text-align: center;border: 5px solid black; margin: 22px; padding: 20px;">
+
+                                    <p><img src="{{i.Photo.url}}" alt="" height="100" width="100"></p>
+                                    <br>
+                                    <p> Area :{{ i.Area }}</p>
+
+                                    <br>
+                                    <p> District :{{ i.district }}</p>
+
+                                    <br>
+                                    <p> Pincode :{{ i.Pincode }}</p>
+
+                                    <br>
+                                    <p> Location :{{ i.Location }}</p>
+                                    <br>
+                                    <br>
+                                    <p> Rate :{{ i.Rate }}</p>
+                                    <br>
+                                    <p>Advance :{% widthratio 10 100 i.Rate %}</p>
+                                    <input type="submit" name="Confirm" value="Confirm">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </table>
+        </div>
+    </form>
+</body>
+{% endblock  %}
+</html>

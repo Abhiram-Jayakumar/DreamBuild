@@ -1,0 +1,66 @@
+
+{% extends 'Worker/Header.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="tab">
+        <table border="5" align="center" cellpadding="10">
+            
+            <h1 align="center">View Worker Booking</h1>
+            <tr>
+                <th>User</th>
+                <th>Booking_Date</th>
+                <th>From Date</th>
+                <th>Details</th>
+                
+                <th colspan="2">Action</th>
+                
+            </tr>
+            {% for x in const1 %}
+            <tr>
+                <td>{{x.User2.Name}}</td>
+                <td>{{x.Booking2_Date}}</td>
+                <td>{{x.Date}}</td>
+                <td>{{x.Details}}</td>
+                {% if x.b2_status == 0 %}
+                <td>Not Accepted</td>
+                <td><a href="{% url 'Worker:accept' x.id %}">Accept</a>
+            <a href="{% url 'Worker:reject' x.id %}">Reject</a></td>
+                {% elif x.b2_status == 1 %}
+                <td> Accepted </td>
+                   
+                   
+                {% if x.p_status == 0%}
+                <td>
+                <p>Not Contacted</p></td>
+                {% elif x.p_status == 1 %}
+                <td>Contacted
+              <p><a href="{% url 'Worker:workcmplt' x.id %}">work complete</a></p></td>
+                {% elif x.p_status == 2 %}
+                <td>Worke Complete</td>
+                {% elif x.p_status == 4 %}
+                <td>Payment Complete</td>
+                {% endif %}
+                {% endif %}
+                
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </form>
+</body>
+{% endblock  %}
+
+</html>

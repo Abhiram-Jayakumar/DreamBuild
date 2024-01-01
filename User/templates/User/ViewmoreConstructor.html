@@ -1,0 +1,64 @@
+{% extends 'User/Header.html' %}
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST">
+        <div id="data">
+            <div id="tab">
+            <table align="center" cellpadding="30" style="border-collapse: collapse;">
+                {% csrf_token %}
+                <h1 align="center">View Constructor</h1>
+                <td>
+                    <tr>
+                        {% for x in viewmorecon %}
+                        <td>
+                            <div style="text-align: center;border: 5px solid black; margin: 22px; padding: 20px;">
+                                <p> Name : {{ x.Name }}</p>
+                                <br>
+                                <p> Contact : {{ x.Contact }}</p>
+                                <br>
+                                <p> Gender : {{ x.Gender }}</p>
+                                <br>
+                                <p> Email : {{ x.Email }}</p>
+                                <br>
+                                <p> Place : {{ x.Place }}</p>
+                                <br>
+                                <p> Address : {{ x.Address }}</p>
+                                <br>
+                                <p> TotalEmployees : {{ x.Totalemployees }}</p>
+                                <br>
+                                <p> Register Name : {{ x.Registeredname }}</p>
+                                <br>
+                                <p> Licensenumber : {{ x.Licensenumber }}</p>
+                                <br>
+                                
+                                <p><a href="{% url 'User:viewmoreprv' x.id %}">Prevous Works</a></p>
+                                <br>
+                                <p><a href="{% url 'User:constructurbooking' x.id %}">Book</a></p>
+                                <br>
+                            </div>
+                        </td>
+                        {% if forloop.counter|divisibleby:4 %}
+                    </tr>
+                    <tr>
+                        {% endif %}
+                        {% endfor %}
+                    
+        </div>
+    </form>
+    </table>
+</div>
+
+</body>
+{% endblock  %}
+</html>

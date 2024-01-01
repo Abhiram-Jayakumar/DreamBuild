@@ -1,0 +1,75 @@
+{% extends 'Worker/Header.html' %}
+ {% load static %}
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <h1 align="center">Add Work</h1>
+        <div id="tab">
+        <table border="5" align="center" cellpadding="10">
+            <tr>
+                <td>Category</td>
+                <td><select name="txt_Category" type="text">
+                        <option>--Select--</option>
+                        {% for i in work %}
+                        <option value="{{i.id}}">{{i}}</option>
+                        {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Rate</td>
+                <td><input type="text" name="txt_rate"></td>
+            </tr>
+            <tr>
+                <td>Discription</td>
+                <td><input type="text" name="txt_discription"></td>
+            </tr>
+            <tr>
+                <td>Experience</td>
+                <td><input type="text" name="txt_experience"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="submit" value="Save">
+                    <input type="reset" name="cancel" value="cancel">
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+    <div id="tab">
+        <br>
+        <br>
+    <table border="5" align="center" cellpadding="10">
+        <tr>
+            <th>Category</th>
+            <th>Rate</th>
+            <th>Discription</th>
+            <th>Experience</th>
+            <th>Next</th>
+        </tr>
+        </tr>
+        {% for a in prfwork %}
+        <tr>
+            <th>{{ a.Category }}</th>
+            <th>{{ a.Rate }}</th>
+            <th>{{ a.Discription }}</th>
+            <th>{{ a.Experience }}</th>
+            <td><a href="{% url 'Worker:latestwork' a.id %}">Latest work</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+</body>
+{% endblock  %}
+</html>
